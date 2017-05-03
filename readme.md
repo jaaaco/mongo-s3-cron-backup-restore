@@ -48,6 +48,8 @@ services:
 * AWS_ACCESS_KEY_ID - user with s3 put-object and get-object perrmissions
 * AWS_SECRET_ACCESS_KEY
 * S3BUCKET - S3 bucket name
-* FILEPREFIX - optional file prefix
-* DB - optional database name
-* CRON_SCHEDULE - optional cron schedule, defaults to 0 3 * * * (at 3 am, every day)
+* FILEPREFIX - (optional) file prefix
+* DB - (optional) database name
+* CRON_SCHEDULE - (optional) cron schedule, defaults to 0 3 * * * (at 3 am, every day)
+* MONGO_HOST - (optional) defaults to mongodb
+* MONGO_PORT - (optional) defaults to 27017
