@@ -47,7 +47,7 @@ if [ "$1" == "backup" ] ; then
   echo "Starting backup... $(date)"
   echo "mongodump --quiet -h $MONGO_HOST -p $MONGO_PORT $DB_ARG"
   mongodump --quiet -h $MONGO_HOST -p $MONGO_PORT $DB_ARG
-  if [ -e dump/ ] ; then
+  if [ -d dump ] ; then
       tar -zcvf $FILE dump/
       aws s3api put-object --bucket $S3BUCKET --key $FILENAME --body $FILE
       echo "Cleaning up..."
