@@ -30,11 +30,11 @@ services:
       mongodb:
         condition: service_healthy
   backup:
-    image: mongo-s3-cron-backup-restore
+    image: jaaaco:mongo-s3-cron-backup-restore
     environment:
       AWS_ACCESS_KEY_ID: "PLACE_YOUR_KEYS_HERE"
       AWS_SECRET_ACCESS_KEY: "PLACE_YOUR_KEYS_HERE"
-      S3BUCKET: "cms-backup-dev"
+      S3BUCKET: "PLACE_YOUR_BUCKET_NAME_HERE"
       DB: "app"
     links:
       - mongodb
