@@ -41,17 +41,16 @@ if [[ -n "$DB" ]]; then
 fi
 
 FILENAME=$FILEPREFIX.latest.tar.gz
-FILE=/backup/backup-$FILENAME
 
 if [ "$1" == "backup" ] ; then
   echo "Starting backup... $(date)"
   echo "mongodump --quiet -h $MONGO_HOST -p $MONGO_PORT $DB_ARG"
   mongodump --quiet -h $MONGO_HOST -p $MONGO_PORT $DB_ARG
   if [ -d dump ] ; then
-      tar -zcvf $FILE dump/
-      aws s3api put-object --bucket $S3BUCKET --key $FILENAME --body $FILE
+      tar -zcvf latest.tar.gz dump/
+      aws s3api put-object --bucket $S3BUCKET --key $FILENAME --body latest.tar.gz
       echo "Cleaning up..."
-      rm -rf dump/ $FILE
+      rm -rf dump/ latest.tar.gz
   else
       echo "No data to backup"
   fi
