@@ -1,6 +1,4 @@
-[![Docker Build Status](https://img.shields.io/docker/build/jaaaco/
-mongo-s3-cron-backup-restore.svg)](https://hub.docker.com/r/jaaaco/
-mongo-s3-cron-backup-restore/)
+[![Docker Build Status](https://img.shields.io/docker/build/jaaaco/mongo-s3-cron-backup-restore.svg)](https://hub.docker.com/r/jaaaco/mongo-s3-cron-backup-restore/)
 
 # Automatic mongodb restore and cron based backups
 
