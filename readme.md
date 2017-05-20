@@ -1,3 +1,5 @@
+[![Docker Build Status](https://img.shields.io/docker/build/jaaaco/s3-lamp-backup.svg)](https://hub.docker.com/r/jaaaco/s3-lamp-backup/)
+
 # Automatic mongodb restore and cron based backups
 
 At startup script tries to restore local mongo database from latest backup, then it starts cron service and creates 
