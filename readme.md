@@ -32,7 +32,7 @@ services:
       mongodb:
         condition: service_healthy
   backup:
-    image: jaaaco:mongo-s3-cron-backup-restore
+    image: jaaaco/mongo-s3-cron-backup-restore
     environment:
       AWS_ACCESS_KEY_ID: "PLACE_YOUR_KEYS_HERE"
       AWS_SECRET_ACCESS_KEY: "PLACE_YOUR_KEYS_HERE"
@@ -50,7 +50,7 @@ services:
 * AWS_ACCESS_KEY_ID - user with s3 put-object and get-object perrmissions
 * AWS_SECRET_ACCESS_KEY
 * S3BUCKET - S3 bucket name
-* FILEPREFIX - (optional) file prefix
+* FILEPREFIX - (optional) file prefix, defaults to "mongo"
 * DB - (optional) database name
 * CRON_SCHEDULE - (optional) cron schedule, defaults to 0 3 * * * (at 3 am, every day)
 * MONGO_HOST - (optional) defaults to mongodb

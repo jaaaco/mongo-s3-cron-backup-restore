@@ -22,7 +22,7 @@ fi
 
 
 if [ -z "$FILEPREFIX" ]; then
-  FILEPREFIX=''
+  FILEPREFIX='mongo'
 fi
 
 if [ -z "$MONGO_HOST" ]; then
