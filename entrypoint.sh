@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Running mongo-s3-cron-backup-restore version 0.2"
+
 if [ -z "$AWS_ACCESS_KEY_ID" ]; then
   echo "AWS_ACCESS_KEY_ID must be set"
   HAS_ERRORS=true
@@ -56,16 +58,20 @@ if [ "$1" == "backup" ] ; then
   exit 0
 fi
 
-echo "Restoring latest backup"
-echo "aws s3api get-object --bucket $S3BUCKET --key $FILENAME latest.tar.gz"
-aws s3api get-object --bucket $S3BUCKET --key $FILENAME latest.tar.gz
-if [ -e latest.tar.gz ] ; then
-    tar zxfv latest.tar.gz
-    mongorestore --drop -h $MONGO_HOST -p $MONGO_PORT dump/
-    echo "Cleaning up..."
-    rm -rf dump/ latest.tar.gz
-else
-    echo "No backup to restore"
+
+if [ "$1" == "restore" ] ; then
+    echo "Restoring latest backup"
+    echo "aws s3api get-object --bucket $S3BUCKET --key $FILENAME latest.tar.gz"
+    aws s3api get-object --bucket $S3BUCKET --key $FILENAME latest.tar.gz
+    if [ -e latest.tar.gz ] ; then
+        tar zxfv latest.tar.gz
+        mongorestore --drop -h $MONGO_HOST -p $MONGO_PORT dump/
+        echo "Cleaning up..."
+        rm -rf dump/ latest.tar.gz
+    else
+        echo "No backup to restore"
+    fi
+    exit 0
 fi
 
 CRON_SCHEDULE=${CRON_SCHEDULE:-0 3 * * *}
@@ -84,7 +90,7 @@ CRON_ENV="$CRON_ENV\nDB='$DB'"
 CRON_ENV="$CRON_ENV\nPATH=$PATH"
 CRON_ENV="$CRON_ENV\nFILEPREFIX=$FILEPREFIX"
 
-echo -e "$CRON_ENV\n$CRON_SCHEDULE /backup.sh backup > $LOGFIFO 2>&1" | crontab -
+echo -e "$CRON_ENV\n$CRON_SCHEDULE /entrypoint.sh backup > $LOGFIFO 2>&1" | crontab -
 crontab -l
 cron
 tail -f "$LOGFIFO"

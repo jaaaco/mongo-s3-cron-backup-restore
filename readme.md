@@ -2,8 +2,20 @@
 
 # Automatic mongodb restore and cron based backups
 
-At startup script tries to restore local mongo database from latest backup, then it starts cron service and creates 
-backup in S3 bucket **using same file every time**. There is no backup retention.
+It starts cron service and creates 
+backup in S3 bucket **using same file every time**. There is no backup retention. To do that enable versioning on your S3 bucket.
+
+To manually trigger backup:
+
+```
+docker exec -it <running-container-id> /entrypoint.sh backup
+```
+
+To manually restore latest version
+
+```
+docker exec -it <running-container-id> /entrypoint.sh restore
+```
 
 ## Usage
 
